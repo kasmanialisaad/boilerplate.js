@@ -1,0 +1,12 @@
+/* How To Use (Used With Font Icon Generator)
+
+.test-class {
+     @include icon(send-mail);
+}
+
+*/
+
+@mixin icon($icon) {
+    font-family: icons !important;
+    @extend .icon-#{$icon};
+}

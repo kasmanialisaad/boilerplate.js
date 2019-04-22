@@ -1,0 +1,28 @@
+{
+  "webfonts": "./Boilerplate/src/webfonts",
+  "sprites": "./Boilerplate/src/sprites",
+  "images": "./Boilerplate/src/images",
+  "server": "localhost:8080",
+  "js": {
+    "input": "./Boilerplate/src/js/app.js",
+    "output": "./public/js/",
+    "public": "/js/"
+  },
+  "css": {
+    "input": "./Boilerplate/src/sass/app.scss",
+    "output": "./public/css/",
+    "public": "/css/"
+  },
+  "autoUpdate": false,
+  "laravel": false,
+  "watch": {
+    "js": {
+      "before": false,
+      "after": false
+    },
+    "css": {
+      "before": false,
+      "after": false
+    }
+  }
+}

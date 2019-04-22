@@ -1,0 +1,23 @@
+{
+    "extends": "eslint:recommended",
+    "rules": {
+        "no-empty": 1,
+        "no-extra-semi": 2,
+        "eqeqeq": [
+            1,
+            "allow-null"
+        ],
+        "guard-for-in": 1,
+        "semi": [
+            1,
+            "always"
+        ]
+    },
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6 
+    }
+}

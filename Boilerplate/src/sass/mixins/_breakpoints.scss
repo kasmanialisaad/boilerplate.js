@@ -1,0 +1,165 @@
+/* How To Use
+
+    "phone":        400px,
+    "phone-wide":   480px,
+    "phablet":      560px,
+    "tablet-small": 640px,
+    "tablet":       768px,
+    "tablet-wide":  1024px,
+    "desktop":      1248px,
+    "desktop-wide": 1440px
+
+    // Effects 'tablet-wide' Breakpoint and Anything After
+    @include mq('tablet-wide') {
+        .navbar {
+            color: red;
+        }
+    }
+
+    // Effects 'tablet-wide' Breakpoint and Anything Before
+    @include mq('tablet-wide', 'max') {
+        .navbar {
+            color: red;
+        }
+    }
+
+    // Effects only 'tablet-wide' Breakpoint
+    @include mq('tablet-wide', 'only') {
+        .navbar {
+            color: red;
+        }
+    }
+
+    // Only Is In Effect Between 'phone' - 'phablet' breakpoints
+    @include mobile {
+        .test-class {
+            background-color: red;
+        }
+    }
+
+    // Only Is In Effect Between 'tablet-small' - 'tablet-wide' breakpoints
+    @include tablet {
+        .test-class {
+            background-color: red;
+        }
+    }
+
+    // Only Is In Effect Between 'desktop' - 'desktop-wide' breakpoints
+    @include desktop {
+        .test-class {
+            background-color: red;
+        }
+    }
+
+    // Effects everything except mobile breakpoints
+    @include not-mobile {
+        .test-class {
+            background-color: red;
+        }
+    }
+
+    // Effects everything except tablet breakpoints
+    @include not-tablet {
+        .test-class {
+            background-color: red;
+        }
+    }
+
+    // Effects everything except desktop breakpoints
+    @include not-desktop {
+        .test-class {
+            background-color: red;
+        }
+    }
+
+*/
+
+$breakpoints: (
+    "minimum":      0,
+    "phone":        400px,
+    "phone-wide":   480px,
+    "phablet":      560px,
+    "tablet-small": 640px,
+    "tablet":       768px,
+    "tablet-wide":  1024px,
+    "desktop":      1248px,
+    "desktop-wide": 1440px,
+    "maximum":      9999px
+);
+
+@function nextKey($current-value, $mapped-list:$breakpoints) {
+    // get current key from list
+    $the-list: map-keys($mapped-list);
+
+    //find index of current value and add 1
+    $the-index: ( index( $the-list, $current-value) ) + 1;
+
+    // get value from list with new index
+    $new-value : nth($the-list, $the-index);
+
+    @return $new-value;
+}
+
+@mixin mq($width, $type: min) {
+
+    @if map_has_key($breakpoints, $width) {
+
+        $input: $width;
+        $width: map_get($breakpoints, $width);
+
+        @if $type == max {
+            $width: $width - 1px;
+        }
+
+        @if $type == 'only' {
+ 
+            @media (min-width: $width) and (max-width: map_get($breakpoints, nextKey($input)) - 1px) {
+                @content;
+            }
+
+        } @else {
+
+            @media only screen and (#{$type}-width: $width) {
+                @content;
+            }
+
+        }
+
+    }
+}
+
+@mixin mobile {
+    @media ( min-width: map_get($breakpoints, 'minimum') ) and ( max-width: map_get($breakpoints, 'tablet-small') - 1px ) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media ( min-width: map_get($breakpoints, 'tablet-small') ) and ( max-width: map_get($breakpoints, 'desktop') - 1px ) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (min-width: map_get($breakpoints, 'desktop')) {
+        @content;
+    }
+}
+
+@mixin not-mobile {
+    @media (min-width: map_get($breakpoints, 'tablet-small')) and (max-width: map_get($breakpoints, 'maximum')) {
+        @content;
+    }
+}
+
+@mixin not-tablet {
+    @media not all and ( min-width: map_get($breakpoints, 'tablet-small') ) and ( max-width: map_get($breakpoints, 'desktop') - 1px ) {
+        @content;
+    }
+}
+
+@mixin not-desktop {
+    @media (min-width: map_get($breakpoints, 'minimum')) and (max-width: map_get($breakpoints, 'desktop') - 1px) {
+        @content;
+    }
+}

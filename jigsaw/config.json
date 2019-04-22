@@ -1,0 +1,19 @@
+{
+  "webfonts": "./source/_assets/webfonts",
+  "sprites": "./source/_assets/sprites",
+  "images": "./build_local/assets/images",
+  "server": "localhost:8080",
+  "js": {
+    "input": "./source/_assets/js/app.js",
+    "output": "./build_local/assets/js/",
+    "public": "/assets/js'"
+  },
+  "css": {
+    "input": "./source/_assets/sass/app.scss",
+    "output": "./build_local/assets/css/",
+    "public": "/assets/css"
+  },
+  "autoUpdate": false,
+  "jigsaw": true,
+  "laravelMix": "./build_local/assets/mix-manifest.json"
+}

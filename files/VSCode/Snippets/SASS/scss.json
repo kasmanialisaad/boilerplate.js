@@ -1,0 +1,56 @@
+{
+    "mq": {
+        "prefix": "mqdesktop",
+        "body": [
+            "@include mq('${1|desktop,desktop-wide|}') {\r",
+            "    $2\r",
+            "}"
+        ],
+        "description": "mq desktop"
+    },
+    "mq tablet": {
+        "prefix": "mqtablet",
+        "body": [
+            "@include mq('${1|tablet-small,tablet,tablet-wide|}') {\r",
+            "    $2\r",
+            "}"
+        ],
+        "description": "mq tablet"
+    },
+    "mq mobile": {
+        "prefix": "mqphone",
+        "body": [
+            "@include mq('${1|phone,phone-wide,phablet|}') {\r",
+            "    $2\r",
+            "}"
+        ],
+        "description": "mq phone"
+    },
+    "mobile": {
+        "prefix": "mobile",
+        "body": [
+            "@include mobile {\r",
+            "    $1\r",
+            "}"
+        ],
+        "description": "mobile"
+    },
+    "tablet": {
+        "prefix": "tablet",
+        "body": [
+            "@include tablet {\r",
+            "    $1\r",
+            "}"
+        ],
+        "description": "tablet"
+    },
+    "desktop": {
+        "prefix": "desktop",
+        "body": [
+            "@include desktop {\r",
+            "    $1\r",
+            "}"
+        ],
+        "description": "desktop"
+    }
+}
