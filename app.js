@@ -63,20 +63,22 @@ function WATCH() {
 
         watch('./source/**/*.blade.php').on('change', function(file) {
             var begin = Date.now();
-            file = path.parse(file);
-            file.dir = file.dir.split('source')[1];
-            let dir = file.dir.indexOf('/') >= 0 ? file.dir.split('/') : file.dir.split('\\');
-            let publicPath = dir.join('/') + '/index.html';
-           
-            child.exec('mv "./build_local/assets" "./assets"', () => {});
-            child.exec('"./vendor/bin/jigsaw" build', function() {
-                child.execSync('mv "./assets" "./build_local/assets"');
-                browserSync.reload();
-                var end = Date.now();
-                var timeSpent = (end - begin) + "ms";
-                console.log('Jigsaw Build Complete'.bgBlue.white, timeSpent);
-                // require('./jigsaw').initFile('./build_local' + publicPath);
-            });
+                      
+            child.execSync('mv "./build_local/assets" "./assets"');
+            child.execSync('"./vendor/bin/jigsaw" build');
+            child.execSync('mv "./assets" "./build_local/assets"');
+            browserSync.reload();
+            var end = Date.now();
+            var timeSpent = (end - begin) + "ms";
+            console.log('Jigsaw Build Complete'.bgBlue.white, timeSpent);
+
+            if (config.jigsaw.cache) {
+                file = path.parse(file);
+                file.dir = file.dir.split('source')[1];
+                let dir = file.dir.indexOf('/') >= 0 ? file.dir.split('/') : file.dir.split('\\');
+                if (dir.indexOf('_') < 0) require('./jigsaw').initFile(dir);
+            }
+            return;
         });
 
         browserSync.init({

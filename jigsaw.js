@@ -71,10 +71,32 @@ function copyFiles() {
 
 }
 
-function initFile(file) {
-
-    file = fs.readFileSync(file).toString();
-    console.log(file);
+function initFile(path) {
+    path = path.join('/');
+    var html_minifier = $REQUIRE('html-minifier');
+    let file = './build_local' + path + '/index.html';
+    let html = fs.readFileSync(file).toString();
+    let result = html_minifier.minify(html, {
+        removeAttributeQuotes: true,
+        collapseInlineTagWhitespace: true,
+        collapseWhitespace: true,
+        conservativeCollapse: true,
+        minifyCSS: true,
+        minifyJS: true,
+        removeComments: true,
+        removeScriptTypeAttributes: true
+    });
+    fs.ensureFileSync(config.jigsaw.cache);
+    let json = fs.readFileSync(config.jigsaw.cache).toString();
+    try {
+        json = JSON.parse(json);
+    } catch (error) {
+        json = {};
+    }
+    path = path ? path : '/';
+    json[path] = result.match(/<body>(.*?)<\/body>/)[1].trim();
+    console.log(`Cached Route "${path}"`.gray);
+    fs.writeJSONSync(config.jigsaw.cache, json);
     return;
 
     fs.readFile(file, function (err, data) {
