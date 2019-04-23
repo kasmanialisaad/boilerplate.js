@@ -22,7 +22,6 @@ window.page = window.page || {};
 window.components = window.components || {};
 
 // Generates ID for body based on the current URL
-// Generates ID for body based on the current URL
 (function cutomTag() {
     const company = 'boilerplate';
     if (location.pathname.length === 1) return 'home-' + company;

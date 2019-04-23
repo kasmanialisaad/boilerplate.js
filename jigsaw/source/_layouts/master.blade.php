@@ -5,7 +5,5 @@
     </head>
     <body>
         @yield('body')
-
-        @include('_layouts._scripts')
     </body>
 </html>

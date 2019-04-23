@@ -1,1 +1,1 @@
-# Files in this folder won't be compiled in production. @command: 'gulp js --prod'
+# Files in this folder won't be compiled in production. @command: 'gulp js --prod' or 'gulp prod'
