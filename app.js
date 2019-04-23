@@ -67,9 +67,7 @@ function WATCH() {
             file.dir = file.dir.split('source')[1];
             let dir = file.dir.indexOf('/') >= 0 ? file.dir.split('/') : file.dir.split('\\');
             let publicPath = dir.join('/') + '/index.html';
-            console.log(publicPath);
-            require('./jigsaw').initFile('./build_local' + publicPath);
-   
+           
             child.exec('mv "./build_local/assets" "./assets"', () => {});
             child.exec('"./vendor/bin/jigsaw" build', function() {
                 child.execSync('mv "./assets" "./build_local/assets"');
@@ -77,6 +75,7 @@ function WATCH() {
                 var end = Date.now();
                 var timeSpent = (end - begin) + "ms";
                 console.log('Jigsaw Build Complete'.bgBlue.white, timeSpent);
+                // require('./jigsaw').initFile('./build_local' + publicPath);
             });
         });
 

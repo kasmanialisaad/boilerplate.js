@@ -18,6 +18,7 @@ function create() {
     let data = {};
     data[js] = js + '?id=0';
     data[css] = css + '?id=0';
+    fs.ensureFileSync(config.laravelMix);
     fs.writeJsonSync(config.laravelMix, data);
 }
 
